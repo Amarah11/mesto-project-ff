@@ -15,8 +15,8 @@ function createCard(element, deleteCard) {
    return place;
 }
 
-function deleteCard() {
-  const card = document.querySelector('.card__delete-button').closest('.places__item')
+function deleteCard(evt) {
+  const card = evt.target.closest('.places__item');
   card.remove();
 }
 
