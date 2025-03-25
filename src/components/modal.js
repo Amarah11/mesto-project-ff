@@ -1,6 +1,6 @@
-export {OpenModal, closeModal};
+export {openModal, closeModal};
 
-function OpenModal(arg) {
+function openModal(arg) {
   arg.classList.add('popup_is-opened'); 
   document.addEventListener('keydown', handleEscKeyUp);
 }
@@ -12,8 +12,8 @@ function closeModal (arg) {
 
 // Функция закрытия попапа кликом на ESC
 const handleEscKeyUp = (evt) => {
-    const popup = document.querySelector(".popup_is-opened"); 
     if (evt.key === "Escape") {
+      const popup = document.querySelector(".popup_is-opened"); 
       closeModal(popup);
     }
   };

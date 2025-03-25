@@ -1,7 +1,7 @@
 import "./index.css";
-import { initialCards, createCard, renderCard, deleteCard, likeCard } from "./components/cards";
+import { initialCards, createCard, deleteCard, likeCard } from "./components/cards";
 import "./components/modal";
-import { OpenModal, closeModal } from "./components/modal";
+import { openModal, closeModal } from "./components/modal";
 
 const placesList = document.querySelector(".places__list");
 const profileEditBtn = document.querySelector(".profile__edit-button");
@@ -16,6 +16,10 @@ const editForm = document.forms["edit-profile"]; // переменные для 
 const name = document.querySelector(".profile__title");
 const descr = document.querySelector(".profile__description");
 
+// функция рендера карточки
+function renderCard(place, placesList) {
+  placesList.append(place);
+}
 
 // вывлод карточек на страничку
 initialCards.forEach((element) => {
@@ -30,18 +34,18 @@ function openImageModal(src, alt, capt) {
   imageOfImagePopup.src = src;
   imageOfImagePopup.alt = alt;
   imagePopupCaption.textContent = capt;
-  OpenModal(imagePopup);
+  openModal(imagePopup);
 }
 
 // функция вывода попапа редактирования профиля
 function editProfile() {
   filingPopup();
-  OpenModal(editPopup);
+  openModal(editPopup);
 }
 
 // функция вывода попапа добавления новой карточки
 function addCard() {
-  OpenModal(newCardPopup);
+  openModal(newCardPopup);
 }
 
 // функция слушателя закрытия попапов
@@ -65,8 +69,8 @@ function filingPopup() {
   descrInput.value = descr.textContent;
 }
 
-// функция редактиолвания профиля
-function handleFormSubmit(evt) {
+// функция редактирования профиля
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   const nameInput = editForm.elements.name;
   const descrInput = editForm.elements.description;
@@ -88,6 +92,8 @@ function addNewCardSubmin(evt) {
   const newCard = createCard(newCardObj, deleteCard, likeCard, openImageModal);
   placesList.prepend(newCard);
   closeModal(newCardPopup);
+  addForm.elements["place-name"].value = '';
+  addForm.elements["link"].value = '';
 }
 
 // слушаели для вывода модальных окон
@@ -100,7 +106,7 @@ addListener(newCardPopup);
 addListener(imagePopup);
 
 // слушатель на кнопку редактирования профиля
-editForm.addEventListener("submit", handleFormSubmit);
+editForm.addEventListener("submit", handleProfileFormSubmit);
 
 // слушатель на кнопку добавления карточки
 addForm.addEventListener("submit", addNewCardSubmin);

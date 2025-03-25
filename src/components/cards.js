@@ -18,11 +18,6 @@ export function createCard(element, deleteCard, likeCard, openImageModal) {
   return place;
 }
 
-// функция рендера карточки
-export function renderCard(place, placesList) {
-  placesList.append(place);
-}
-
 // функция удаления карточки
 export function deleteCard(evt) {
   const card = evt.target.closest(".places__item");
